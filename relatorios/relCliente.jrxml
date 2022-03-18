@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relCliente" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae6cff82-2d68-4f15-bc00-7665c4ef0b9e">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="ClientesRegiao" uuid="73d540ce-e2ef-44ba-929c-89d5b7cdd339">
+		<queryString language="SQL">
+			<![CDATA[select bairro, count(*) as "Quantidade" from e2_clientes group by bairro order by bairro;]]>
+		</queryString>
+		<field name="bairro" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Quantidade" class="java.lang.Long"/>
+	</subDataset>
+	<subDataset name="cliente" uuid="1f9f8481-6d71-40ec-ae8a-595976e8278c">
+		<queryString language="SQL">
+			<![CDATA[SELECT bairro as Bairro, count(*) as Clientes FROM e2_clientes group by bairro;]]>
+		</queryString>
+		<field name="Bairro" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Clientes" class="java.lang.Long"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[select * from e2_clientes order by nome, bairro;]]>
+	</queryString>
+	<field name="COD" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CPF" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FK_E1_AUTOMOVEL_COD" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BAIRRO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CEP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOGRADOURO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CIDADE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="UF" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMPLEMENTO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NR" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="298" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="22" width="555" height="32" uuid="78a5d5f0-4f62-4184-978f-b011160aa3e0"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTA DE CLIENTES]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="364" y="0" width="181" height="20" uuid="15e15b6d-72cf-4e71-9bdd-f6002e98bd93"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="111" width="555" height="1" uuid="c969c510-d38c-4a80-8857-ef332fccc7f5"/>
+			</line>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="87" y="122" width="358" height="165" uuid="8342cb74-c085-4d31-9c42-fec269f517e4"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="ClientesRegiao" uuid="28ecd0e2-12e3-4a20-a667-4e6ca5834c3d"/>
+					</dataset>
+					<keyExpression><![CDATA[$F{bairro}]]></keyExpression>
+					<valueExpression><![CDATA[$F{Quantidade}]]></valueExpression>
+				</pieDataset>
+				<piePlot isShowLabels="false" labelFormat="{1}">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<image>
+				<reportElement x="257" y="64" width="20" height="23" uuid="0eb4aa10-4f0c-44b7-86b1-87c7edc1d2cf"/>
+				<imageExpression><![CDATA["\\images\\user.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="22" width="555" height="1" uuid="09bd3f4e-4c3e-4957-97fa-23beefcf1cc9"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="145" y="41" width="100" height="20" uuid="9d9f278e-67c9-4463-8bc7-c62a600650ea"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RG]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="41" width="100" height="20" uuid="7f842400-8fc8-44c0-9772-a1dedb0610ee"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="41" width="100" height="20" uuid="c2b64b9c-479c-473f-ac8e-34de7efb49cf"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="41" width="100" height="20" uuid="6ba30156-4240-4a25-b8f0-fa4202400584"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TEL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="445" y="41" width="100" height="20" uuid="0a37b5e8-d771-4fc5-a3d6-d672523c0c76"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BAIRRO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="60" width="555" height="1" uuid="a91c7d04-3c09-4f8d-a048-1e380802d11e"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="45" y="0" width="100" height="20" uuid="a35e0ed8-1bed-44c1-b9ba-894f56f1efbd"/>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="0" width="100" height="20" uuid="7b8a446c-5b9a-4831-ab25-10e6683e3453"/>
+				<textFieldExpression><![CDATA[$F{RG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="245" y="0" width="100" height="20" uuid="67f46799-8d30-411a-a164-94af97bdbc8d"/>
+				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="0" width="100" height="20" uuid="48e82b5c-f12f-4d35-b67a-a143bb984aeb"/>
+				<textFieldExpression><![CDATA[$F{TEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="445" y="0" width="100" height="20" uuid="9ef71b72-e504-43ed-b210-1453ccb67008"/>
+				<textFieldExpression><![CDATA[$F{BAIRRO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" forecolor="#999999" uuid="4b7bfa98-ec95-4c75-859a-42b755aa7f12"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="425" y="34" width="80" height="20" uuid="3c691c60-2c8a-4576-a15e-e29fde71e882"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="505" y="34" width="40" height="20" uuid="5b7418eb-a083-4fa3-9e55-d1a315365aff"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

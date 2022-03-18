@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relAutomovel" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dce1b356-b7ef-4e99-b33a-c0b1118148dd">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="GruposAutomoveis" uuid="ce95fee8-3c48-4294-9cc2-c276ab0faa75">
+		<queryString>
+			<![CDATA[select modelo, count(*) as "Quantidade" from e1_automovel group by modelo order by modelo]]>
+		</queryString>
+		<field name="modelo" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Quantidade" class="java.lang.Long"/>
+	</subDataset>
+	<subDataset name="FabricaAutomoveis" uuid="6f1b9c6d-9d0d-4717-b0ba-9d8c80fb2de1">
+		<queryString>
+			<![CDATA[select ano as "Fabricação", count(*) as "Quantidade" from e1_automovel group by ano order by ano]]>
+		</queryString>
+		<field name="Fabricação" class="java.lang.String"/>
+		<field name="Quantidade" class="java.lang.Long"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[select * from e1_automovel order by ano desc]]>
+	</queryString>
+	<field name="COD" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PLACA" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RENAVAM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FABRICANTE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MODELO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ANO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FK_E4_OCORRENCIAS_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="307" splitType="Stretch">
+			<staticText>
+				<reportElement x="126" y="26" width="300" height="28" uuid="2db8fa9a-622e-42cb-b045-e5d3ed62c137"/>
+				<textElement textAlignment="Center">
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE VEÍCULOS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="94" width="555" height="1" uuid="0079a7a8-e853-4aa0-b78d-cc9036490519"/>
+			</line>
+			<barChart>
+				<chart isShowLegend="false" theme="default">
+					<reportElement mode="Opaque" x="280" y="118" width="260" height="184" uuid="f76bbfb2-101c-4cb5-b632-1b216c245612"/>
+					<chartTitle position="Bottom"/>
+					<chartSubtitle/>
+					<chartLegend>
+						<font size="12"/>
+					</chartLegend>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="GruposAutomoveis" uuid="39b1a32a-0d12-4807-b61b-2e783d91a0c2">
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Quantitativo Modelos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{modelo}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Quantidade}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowTickLabels="true">
+					<plot orientation="Horizontal" labelRotation="0.0">
+						<seriesColor seriesOrder="0" color="#00CC00"/>
+					</plot>
+					<itemLabel/>
+					<categoryAxisFormat labelRotation="0.0">
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<barChart>
+				<chart isShowLegend="false">
+					<reportElement x="10" y="118" width="260" height="184" uuid="6cded4c3-6048-4d66-bdb0-aa4fcd2270c6"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="FabricaAutomoveis" uuid="40542136-dfe4-42b5-a261-63e25ae40a2a"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Quantitativo Fabricação"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Fabricação}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Quantidade}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot orientation="Horizontal"/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<staticText>
+				<reportElement x="280" y="104" width="260" height="14" uuid="6170f9dd-b7cf-4015-8c94-866bde01a17d"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Veículos cadastrados X MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="104" width="260" height="14" uuid="26b9a242-194d-4b22-85c7-983d38fd6d3d"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Veículos cadastrados X ANO fabricação]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="280" y="0" width="260" height="20" uuid="5786e29f-341f-44d6-b355-fd4289af9b37"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="266" y="60" width="19" height="20" uuid="ace7710d-3a67-4370-ac18-96ef5567629b"/>
+				<imageExpression><![CDATA[".\\images\\car.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23">
+			<line>
+				<reportElement x="0" y="10" width="555" height="1" uuid="986ae43b-6db6-4609-bc86-c2add734e2b8"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50">
+			<staticText>
+				<reportElement x="14" y="10" width="128" height="20" uuid="4171c8d3-6c47-463f-8da5-a17a76f0dfe5"/>
+				<text><![CDATA[PLACA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="10" width="138" height="20" uuid="579ea47b-9a79-44c5-9faa-f78a7b2a1e4f"/>
+				<text><![CDATA[MODELO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="10" width="128" height="20" uuid="a0e9b836-a879-4490-9819-8178bc1521d0"/>
+				<text><![CDATA[ANO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="10" width="100" height="20" uuid="2769640a-61fc-4e36-b680-9c70138ac1a6"/>
+				<text><![CDATA[COR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="37" width="555" height="1" uuid="684e1509-db7a-4dd3-859c-b727e24a2189"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31">
+			<textField>
+				<reportElement x="14" y="0" width="128" height="20" uuid="0e2ca0f0-1beb-4149-98d1-eafd61255df4"/>
+				<textFieldExpression><![CDATA[$F{PLACA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="0" width="138" height="20" uuid="0638ffe6-a73d-4461-bd03-bc6e5803cb5a"/>
+				<textFieldExpression><![CDATA[$F{MODELO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="298" y="0" width="128" height="20" uuid="2cdd4397-dc47-475a-b828-3e8f043e3e6c"/>
+				<textFieldExpression><![CDATA[$F{ANO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="100" height="20" uuid="a1060043-c778-4686-808e-f8e409b4bb3d"/>
+				<textFieldExpression><![CDATA[$F{COR}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="25" width="555" height="1" forecolor="#CCCCCC" uuid="7275bfa2-32d1-4c21-ad5b-81435faffd66"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="34" width="80" height="20" uuid="89509859-024e-4bb0-bac0-1ac0a7699f7e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="34" width="40" height="20" uuid="8e870035-4e00-4acf-9ae9-68815cdba2d5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

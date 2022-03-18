@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relOcorrencias" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24b8915c-80ae-44d2-a443-34a8dbf008b7">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="datagroup" uuid="ce3ef3cf-5b9d-4665-871a-ec83421fbbb8">
+		<queryString>
+			<![CDATA[SELECT local as Local, count(*) as Quantidade FROM segnoturno.e4_ocorrencias group by local;]]>
+		</queryString>
+		<field name="Local" class="java.lang.String">
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="Quantidade" class="java.lang.Double"/>
+	</subDataset>
+	<queryString>
+		<![CDATA[select DATE_FORMAT(data,"%d/%m/%Y") as data, local, descricao from e4_ocorrencias]]>
+	</queryString>
+	<field name="data" class="java.lang.String"/>
+	<field name="local" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="256" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="18" width="555" height="32" uuid="fc818876-44a8-43e1-ae6f-24532014a06a"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTA DE OCORRÊNCIAS ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="294" y="-2" width="250" height="20" uuid="6283ee38-cc39-41af-ba9e-19e9cbe06bdb"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="245" width="555" height="1" uuid="7ad28ee9-378c-4e19-91a6-788119aa83dd"/>
+			</line>
+			<barChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="76" width="555" height="165" uuid="e2ff5b9a-ce6c-46f3-981d-ce9ab3846cd2"/>
+					<chartTitle position="Top"/>
+					<chartSubtitle/>
+					<chartLegend position="Right"/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="datagroup" uuid="192cb07d-f6f7-40b7-8482-3b421c1e9c97"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{Local}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{Local}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Quantidade}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true" isShowTickLabels="false" isShowTickMarks="false">
+					<plot orientation="Horizontal"/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<image>
+				<reportElement x="265" y="50" width="31" height="26" uuid="6ef8f32b-7f8d-4358-890c-162fb2e02730"/>
+				<imageExpression><![CDATA[".\\images\\colisao.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="19" y="31" width="85" height="20" uuid="7d68ad2d-c6a1-4967-88a4-beb59e91ec92"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="31" width="190" height="20" uuid="cedd23c1-3209-4009-b57b-e2b576006f15"/>
+				<text><![CDATA[Local]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="31" width="147" height="20" uuid="9a39095e-1263-430d-91d5-4b77cbb753f1"/>
+				<text><![CDATA[Descrição do acidente]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="51" width="555" height="1" uuid="172737ea-3f7a-4bc1-80ae-6c78f7b684f7"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="19" y="0" width="85" height="20" uuid="ce6355f2-720d-4b0f-8910-7737c9d964a3"/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="0" width="190" height="20" uuid="d354d1dd-9658-4e5e-a02e-a5abe15aa718"/>
+				<textFieldExpression><![CDATA[$F{local}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="0" width="147" height="20" uuid="17c0ac61-9c74-43f1-bab9-d9ca47ac6772"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" forecolor="#999999" uuid="031da737-4408-4373-a674-531b144ac7ca"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="429" y="34" width="80" height="20" uuid="b1ced43a-2693-47d3-a00d-814c94654db9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="509" y="34" width="40" height="20" uuid="aa4b0543-952c-4dce-8904-37d82b189031"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
