@@ -66,6 +66,8 @@ public class Veiculo {
 
                 if(resultado==1 && resultado2==1){
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
+                }else if(resultado==1 && resultado2!=1){
+                    JOptionPane.showMessageDialog(null, "Veículo cadastrado sem proprietário vinculado.");
                 }else{
                     JOptionPane.showMessageDialog(null, "Erro ao cadastrar veiculo.");
                 }
